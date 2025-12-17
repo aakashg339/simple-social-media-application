@@ -15,5 +15,5 @@ public class SocialProfile {
     
     @OneToOne
     @JoinColumn(name = "social_user")
-    private SocialUser user;
+    private SocialUser socialUser;
 }
