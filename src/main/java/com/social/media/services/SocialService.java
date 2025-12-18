@@ -19,6 +19,9 @@ public class SocialService {
     }
 
     public SocialUser saveUser(SocialUser socialUser) {
+        if(socialUser.getSocialProfile() != null) {
+            socialUser.getSocialProfile().setSocialUser(socialUser);
+        }
         return socialUserRepository.save(socialUser);
     }
 }

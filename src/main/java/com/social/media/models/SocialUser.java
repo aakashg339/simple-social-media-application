@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,7 +30,7 @@ public class SocialUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "socialUser")
+    @OneToOne(mappedBy = "socialUser", cascade = CascadeType.ALL)
     private SocialProfile socialProfile;
 
     @OneToMany(mappedBy = "socialUser")
@@ -46,5 +47,14 @@ public class SocialUser {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void setSocialProfile(SocialProfile socialProfile) {
+        if (this.socialProfile != socialProfile) {
+            this.socialProfile = socialProfile;
+            if (socialProfile.getSocialUser() != this) {
+                socialProfile.setSocialUser(this);
+            }
+        }
     }
 }
