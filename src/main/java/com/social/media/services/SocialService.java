@@ -24,4 +24,13 @@ public class SocialService {
         }
         return socialUserRepository.save(socialUser);
     }
+
+    public SocialUser deleteUser(Long userId) {
+        SocialUser userToBeDeleted = socialUserRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User Id not present"));
+        
+        socialUserRepository.delete(userToBeDeleted);
+        
+        return userToBeDeleted;
+    }
 }

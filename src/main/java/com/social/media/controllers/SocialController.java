@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.social.media.models.SocialUser;
 import com.social.media.services.SocialService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -28,6 +31,12 @@ public class SocialController {
     @PostMapping("/social/users")
     public ResponseEntity<SocialUser> getMethodName(@RequestBody SocialUser socialUser) {
         return new ResponseEntity<>(socialService.saveUser(socialUser), HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/social/users/{userId}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+        socialService.deleteUser(userId);
+        return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
     }
     
 }
